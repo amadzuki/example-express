@@ -1,7 +1,7 @@
 var express = require("express")
 var router = express.Router()
 
-const users = [
+let users = [
   {
     id: 1,
     name: "Marzuki",
@@ -23,9 +23,23 @@ router.get("/", function (req, res, next) {
 })
 
 router.get("/:id", (req, res, next) => {
+  const user = users.find((user) => user.id === Number.parseInt(req.params.id))
   res.send({
     message: "Get user by id",
-    user: users.find((user) => user.id === Number.parseInt(req.params.id)),
+    user: user,
+  })
+})
+
+router.post("/", (req, res, next) => {
+  const newUser = {
+    name: req.body.name,
+    email: req.body.email,
+  }
+  const updatedUsers = users.concat(newUser)
+  users = updatedUsers
+  res.send({
+    message: "Add new user",
+    newUser: newUser,
   })
 })
 
