@@ -22,4 +22,11 @@ router.get("/", function (req, res, next) {
   })
 })
 
+router.get("/:id", (req, res, next) => {
+  res.send({
+    message: "Get user by id",
+    user: users.find((user) => user.id === Number.parseInt(req.params.id)),
+  })
+})
+
 module.exports = router
